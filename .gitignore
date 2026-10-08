@@ -1,0 +1,12 @@
+# GameMaker build output and caches
+*.resource_order
+*.old
+*.bak
+.vscode/
+/tmp/
+/build/
+/output/
+*.zip
+*.exe
+.DS_Store
+Thumbs.db
