@@ -1,5 +1,8 @@
 # Abyssal Bloom — a deep-sea light story 🐟💡
 
+## Screenshot
+
+![Screenshot](assets/screenshot.png)
 ![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=20,26&height=170&section=header&text=Abyssal%20Bloom&fontSize=54&fontColor=ffffff&animation=fadeIn)
 
 ![key art](assets/key-art.jpg)
@@ -10,10 +13,6 @@
 ![Engine: GameMaker](https://img.shields.io/badge/engine-GameMaker-8a2be2.svg)
 
 A 2D exploration game built with **GameMaker (100% GML, no drag-and-drop)**. The reef has gone dark. You are a small lanternfish with one light — catch glimmerfish to free their pearls, gather **five pearls**, and watch the whole reef bloom from cold black into full colour.
-
-## Screenshots
-
-> 📸 Screenshots coming soon — open the project in GameMaker and press F5 to see the reef bloom for yourself.
 
 ## Features
 
