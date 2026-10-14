@@ -12,4 +12,7 @@ if (!variable_global_exists("fnt_body")) {
 window_set_caption("Abyssal Bloom  |  Vivek Jayakrishnan Nair  |  A00341727");
 global.bloom = 0;
 global.paused = false;
+// VN upgrade: shared defaults — difficulty (0 CALM, 1 DEEP, 2 ABYSS) and fresh-dive flag
+if (!variable_global_exists("difficulty")) global.difficulty = 1;
+if (!variable_global_exists("resume_dive")) global.resume_dive = false;
 t = 0;
