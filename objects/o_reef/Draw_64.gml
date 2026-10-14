@@ -34,6 +34,18 @@ for (var i = 0; i < pearls_needed; i++) {
     draw_sprite_ext(s_pearl, 0, 138 + i * 32, 42, 1, 1, 0, _got ? c_white : make_colour_rgb(60, 70, 90), _got ? 1 : 0.6);
 }
 
+// VN upgrade: dash cooldown bar under the pearls panel
+if (instance_exists(o_angler)) {
+    var _dash_fill = 1 - clamp(o_angler.dash_cd / 100, 0, 1);
+    draw_set_halign(fa_left);
+    draw_set_colour(_muted);
+    draw_text(36, 84, "DASH");
+    draw_set_colour(make_colour_rgb(30, 45, 70));
+    draw_rectangle(110, 80, 282, 88, false);
+    draw_set_colour(o_angler.dash_cd <= 0 ? make_colour_rgb(94, 242, 224) : make_colour_rgb(120, 160, 200));
+    draw_rectangle(110, 80, 110 + 172 * _dash_fill, 88, false);
+}
+
 // whale song meter (top-right)
 var _secs = ceil(alarm[0] / game_get_speed(gamespeed_fps));
 var _fill = 1 - alarm[0] / song_length;
@@ -48,6 +60,16 @@ draw_text(_gw - 36, 40, string(_secs) + "s");
 draw_set_colour(make_colour_rgb(30, 45, 70));
 draw_rectangle(_gw - 272, 60, _gw - 36, 63, false);
 draw_rectangle_colour(_gw - 272, 60, _gw - 272 + 236 * _fill, 63, make_colour_rgb(94, 242, 224), make_colour_rgb(167, 139, 255), make_colour_rgb(167, 139, 255), make_colour_rgb(94, 242, 224), false);
+
+// VN upgrade: Whale Call status under the whale meter
+draw_set_halign(fa_left);
+if (call_unlocked) {
+    draw_set_colour(call_cd <= 0 ? make_colour_rgb(167, 139, 255) : _muted);
+    draw_text(_gw - 272, 92, call_cd <= 0 ? "WHALE CALL READY  —  C" : "WHALE CALL  " + string(ceil(call_cd / 60)) + "s");
+} else {
+    draw_set_colour(_muted);
+    draw_text(_gw - 272, 92, "WHALE CALL  —  listen for the song");
+}
 
 // lamps lit (bottom-left)
 draw_set_halign(fa_left);
@@ -87,7 +109,7 @@ if (toast_t > 0) {
 // controls hint
 draw_set_alpha(0.5);
 draw_set_colour(c_white);
-draw_text(_gw / 2, _gh - 30, "WASD / Arrows  swim      touch glimmerfish  catch      click a nearby lamp  wake it      P  pause");
+draw_text(_gw / 2, _gh - 30, "WASD / Arrows  swim      touch glimmerfish  catch      click a nearby lamp  wake it      SHIFT  dash      C  whale call      P  pause");
 draw_set_alpha(1);
 
 // pause panel
@@ -126,6 +148,10 @@ if (won) {
     }
     draw_set_colour(c_white);
     draw_text(_gw / 2, _gh / 2 + 130, "ENTER  dive again      T  title screen");
+    if (new_best) {
+        draw_set_colour(_gold);
+        draw_text(_gw / 2, _gh / 2 + 108, "NEW BEST TIME!");
+    }
     draw_set_colour(make_colour_rgb(110, 130, 160));
     draw_text(_gw / 2, _gh - 70, "Abyssal Bloom   -   Vivek Jayakrishnan Nair   -   A00341727");
 }

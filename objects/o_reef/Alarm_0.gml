@@ -16,7 +16,15 @@ with (o_glimmer) {
 song_flash = 1;
 shake = 7;
 add_ring(o_angler.x, o_angler.y, 1400, 9, make_colour_rgb(167, 139, 255));
-toast("A whale sings in the deep... the glimmerfish scatter!", 180);
+// VN upgrade: the first whale song TEACHES the Whale Call (C) — a learned song becomes a
+// reusable player verb. Later songs are just the ambient scatter event.
+if (!call_taught) {
+    call_taught = true;
+    call_unlocked = true;
+    toast("The whale teaches you its Call... press C to calm the deep!", 220);
+} else {
+    toast("A whale sings in the deep... the glimmerfish scatter!", 180);
+}
 var _snd = asset_get_index("snd_whale");  // optional sound: plays only once it is added to the project
 if (_snd != -1) audio_play_sound(_snd, 1, false);
 alarm[0] = song_length;  // re-arm the alarm so the whale sings again in 20 s

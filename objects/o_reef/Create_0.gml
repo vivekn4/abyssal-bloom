@@ -32,14 +32,62 @@ dark_surf = -1;
 rings = [];
 toast_msg = "";
 toast_t = 0;
+// VN upgrade: floating pickup text popups (Kelvin-style "+25 O2" feedback, own wording/art)
+floaters = [];
+// VN upgrade: the Whale Call — taught by the first whale song (Aquaria-style learned song = reusable verb)
+call_unlocked = false;
+call_taught = false;
+call_t = 0;
+call_cd = 0;
+// VN upgrade: difficulty (0 CALM, 1 DEEP, 2 ABYSS) + saved-dive restore + best times (Aquaria save-slot idea, GameMaker ini)
+if (!variable_global_exists("difficulty")) global.difficulty = 1;
+if (!variable_global_exists("resume_dive")) global.resume_dive = false;
+resume_pending = false;
+resume_pearls = 0;
+resume_caught = 0;
+resume_lamps = 0;
+best = -1;
+new_best = false;
+ini_open("abyssal_save.ini");
+best = ini_read_real("best", "best_" + string(global.difficulty), -1);
+if (global.resume_dive) {
+    resume_pending = true;
+    resume_pearls = ini_read_real("dive", "pearls", 0);
+    resume_caught = ini_read_real("dive", "caught", 0);
+    resume_lamps = ini_read_real("dive", "lamps", 0);
+}
+ini_close();
 // RUBRIC #9b: start the alarm. Alarms count down in frames, so
 // 60 frames per second x 20 = 1200 frames = 20 seconds.
-song_length = game_get_speed(gamespeed_fps) * 20;
+// VN upgrade: the whale sings sooner on ABYSS, later on CALM.
+var _song_secs = (global.difficulty == 0) ? 24 : (global.difficulty == 2 ? 16 : 20);
+song_length = game_get_speed(gamespeed_fps) * _song_secs;
 alarm[0] = song_length;
 
 // Helper functions other objects can call
 toast = function(_msg, _frames) { toast_msg = _msg; toast_t = _frames; };
 add_ring = function(_x, _y, _max, _spd, _col) { array_push(rings, { rx: _x, ry: _y, r: 6, rmax: _max, spd: _spd, col: _col }); };
+add_float = function(_x, _y, _txt, _col) {
+    array_push(floaters, { fx: _x, fy: _y, txt: _txt, col: _col, t: 0 });
+    if (array_length(floaters) > 12) array_delete(floaters, 0, 1);
+};
+// VN upgrade: persist the dive (pearls / caught / lamps / difficulty / won) plus the
+// best win time for this difficulty, in a plain ini file — GameMaker's idiomatic save.
+save_dive = function() {
+    if (!instance_exists(o_angler)) exit;
+    ini_open("abyssal_save.ini");
+    ini_write_real("dive", "pearls", o_angler.pearls);
+    ini_write_real("dive", "caught", o_angler.caught);
+    ini_write_real("dive", "lamps", lamps_lit());
+    ini_write_real("dive", "difficulty", global.difficulty);
+    ini_write_real("dive", "won", won ? 1 : 0);
+    if (won && (best < 0 || elapsed < best)) {
+        best = elapsed;
+        new_best = true;
+        ini_write_real("best", "best_" + string(global.difficulty), best);
+    }
+    ini_close();
+};
 lamps_lit = function() { var _n = 0; with (o_lamp) if (lit) _n += 1; return _n; };
 
 // Particles drawn above the darkness

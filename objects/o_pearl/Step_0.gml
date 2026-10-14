@@ -10,7 +10,9 @@ if (global.paused) exit;
 if (!instance_exists(o_angler)) exit;  // safety: never read the player if it is gone
 t += 1;
 var _d = point_distance(x, y, o_angler.x, o_angler.y);
-if (_d < 140) {
+// VN upgrade: the Whale Call widens the pearl magnet so pearls stream home
+var _magnet = 140 + ((instance_exists(o_reef) && o_reef.call_t > 0) ? 260 : 0);
+if (_d < _magnet) {
     var _a = point_direction(x, y, o_angler.x, o_angler.y);
     vx += lengthdir_x(0.5, _a);
     vy += lengthdir_y(0.5, _a);
