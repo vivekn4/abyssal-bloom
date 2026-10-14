@@ -17,10 +17,13 @@ A 2D exploration game built with **GameMaker (100% GML, no drag-and-drop)**. The
 ## Features
 
 - 🌊 **Big scrolling world** — a 3200×2000 reef with a camera that follows your lanternfish
-- 🐟 **Living ecosystem** — glimmerfish swim in sine-wave schools and scatter when the whale sings
-- 💡 **Light the way** — click anemone lamps to wake them and push back the darkness
+- 🐟 **Living ecosystem** — glimmerfish swim in sine-wave schools and scatter when the whale sings — now in three variants: common **drifters**, fast shy gold **darts**, and slow big violet **lumens** (deeper water holds rarer, faster fish)
+- 💡 **Light the way** — click anemone lamps to wake them and push back the darkness; darkness now thickens with depth, a soft beam stretches ahead of your lure, and every pearl you carry makes lit lamps shine further
 - 🦪 **Pearl quest** — catch glimmerfish to release pearls; pearls drift toward you; 5 pearls bloom the reef
-- 🐋 **Whale song events** — every 20 seconds a whale sings and the glimmerfish scatter
+- 🐋 **Whale song events** — every 20 seconds a whale sings and the glimmerfish scatter — and the first song **teaches you the Whale Call** (`C`): calm the fish and pull pearls toward you for 4 seconds
+- ⚡ **Dash** — `Shift` bursts forward with a bubble trail (short cooldown, shown under the pearl counter)
+- 🎚️ **Depth select** — pick `1` CALM, `2` DEEP, or `3` ABYSS on the title screen (fish speed/wariness + whale-song interval scale with it)
+- 💾 **Save + best times** — every catch, pearl, and woken lamp persists; press `C` on the title screen to **Continue** a saved dive, and each depth tracks its own fastest bloom time
 - 🎬 **Full game flow** — animated splash screen, title screen, pause, and win screen with replay
 - 🎨 **Dynamic recolouring** — the entire room shifts from cold black to full colour as you collect pearls
 
@@ -34,6 +37,10 @@ A 2D exploration game built with **GameMaker (100% GML, no drag-and-drop)**. The
 | Click a nearby lamp | Wake it and light the area |
 | `P` / `Esc` | Pause (`T` on pause or win screen = back to title) |
 | `Enter` (after winning) | Dive again |
+| `Shift` | Dash (short burst + bubble trail, brief cooldown) |
+| `C` | Whale Call — calms glimmerfish + pulls pearls (taught by the first whale song) |
+| `1` / `2` / `3` (title) | Depth: CALM / DEEP / ABYSS |
+| `C` (title, saved dive) | Continue the saved dive |
 
 ## How to open in GameMaker
 

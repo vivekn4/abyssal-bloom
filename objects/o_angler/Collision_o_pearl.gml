@@ -10,9 +10,11 @@
 // Collecting a pearl; five of them make the whole reef bloom
 pearls += 1;
 part_particles_create(o_reef.ps, other.x, other.y, o_reef.pt_spark, 30);
+o_reef.add_float(other.x, other.y - 30, "+1 PEARL", make_colour_rgb(255, 217, 138));
 var _snd = asset_get_index("snd_pearl");  // optional sound: plays only once it is added to the project
 if (_snd != -1) audio_play_sound(_snd, 1, false);
 instance_destroy(other);
+o_reef.save_dive();  // VN upgrade: every pearl persists the dive
 if (pearls >= o_reef.pearls_needed) {
     o_reef.bloom_target = 1;
     o_reef.toast("The reef is waking up...", 200);

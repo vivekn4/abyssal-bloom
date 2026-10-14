@@ -17,3 +17,7 @@ caught = 0;
 lure_x = x;
 lure_y = y;
 image_speed = 0.4;
+// VN upgrade: dash state (Shift burst + cooldown)
+dash_cd = 0;
+dash_t = 0;
+dash_dir = 0;

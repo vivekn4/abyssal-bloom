@@ -13,8 +13,10 @@
 caught += 1;
 part_particles_create(o_reef.ps, other.x, other.y, o_reef.pt_spark, 22);
 o_reef.add_ring(other.x, other.y, 90, 3, other.image_blend);
+o_reef.add_float(other.x, other.y - 30, "CAUGHT!", make_colour_rgb(94, 242, 224));
 o_reef.shake = 5;
 instance_create_layer(other.x, other.y, "Instances", o_pearl);  // the fish becomes a pearl
 var _snd = asset_get_index("snd_catch");  // optional sound: plays only once it is added to the project
 if (_snd != -1) audio_play_sound(_snd, 1, false);
 instance_destroy(other);
+o_reef.save_dive();  // VN upgrade: every catch persists the dive
